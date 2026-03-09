@@ -33,13 +33,20 @@ export const register = async (email: string, password: string): Promise<void> =
 };
 
 /** Login and persist the JWT */
-export const login = async (email: string, password: string): Promise<void> => {
-  const { data } = await api.post<{ token: string }>("/auth/login", {
+export async function login(email: string, password: string) {
+  const res = await api.post("/auth/login", {
     email,
     password,
   });
-  setToken(data.token);
-};
+
+  const token = res.data.token;
+
+  if (typeof window !== "undefined") {
+    localStorage.setItem("token", token);
+  }
+
+  return token;
+}
 
 /** Clear session */
 export const logout = (): void => {

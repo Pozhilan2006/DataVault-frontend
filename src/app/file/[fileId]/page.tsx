@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
-import { isAuthenticated } from "@/lib/auth";
+
 import GraphViewer from "@/components/GraphViewer";
 import { TreeResponse, RFNode, RFEdge } from "@/types/graph";
 
@@ -29,8 +29,10 @@ export default function FilePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.replace("/login");
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
       return;
     }
 

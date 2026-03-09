@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
-import { isAuthenticated } from "@/lib/auth";
+
 import FileCard from "@/components/FileCard";
 import { FileItem } from "@/types/file";
 
@@ -14,8 +14,10 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.replace("/login");
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
       return;
     }
 

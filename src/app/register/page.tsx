@@ -19,7 +19,8 @@ export default function RegisterPage() {
     try {
       await register(email, password);
       router.push("/login");
-    } catch {
+    } catch (err) {
+      console.error("REGISTRATION ERROR:", err);
       setError("Registration failed. The email may already be in use.");
     } finally {
       setLoading(false);

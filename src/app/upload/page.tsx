@@ -2,15 +2,17 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated } from "@/lib/auth";
+
 import UploadForm from "@/components/UploadForm";
 
 export default function UploadPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.replace("/login");
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
     }
   }, [router]);
 
