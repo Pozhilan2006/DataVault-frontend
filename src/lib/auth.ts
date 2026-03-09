@@ -28,8 +28,8 @@ export const isAuthenticated = (): boolean => {
 };
 
 /** Register a new account */
-export const register = async (email: string, password: string): Promise<void> => {
-  await api.post("/auth/register", { email, password });
+export const register = async (email: string, username: string, password: string): Promise<void> => {
+  await api.post("/auth/register", { email, username, password });
 };
 
 /** Login and persist the JWT */

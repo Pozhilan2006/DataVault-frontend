@@ -8,6 +8,7 @@ import { register } from "@/lib/auth";
 export default function RegisterPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
     try {
-      await register(email, password);
+      await register(email, username, password);
       router.push("/login");
     } catch (err) {
       console.error("REGISTRATION ERROR:", err);
@@ -60,6 +61,21 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
+                required
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-brand-400 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-400/20"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="username" className="text-sm font-medium text-brand-200">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="johndoe"
                 required
                 className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-brand-400 outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-400/20"
               />

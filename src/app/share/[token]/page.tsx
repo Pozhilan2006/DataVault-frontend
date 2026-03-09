@@ -1,17 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
 import { ShareFileResponse } from "@/types/file";
 
 export default function SharePage() {
   const { token } = useParams<{ token: string }>();
+  const router = useRouter();
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const tokenStr = localStorage.getItem("token");
+    if (!tokenStr) {
+      router.push(`/login?redirect=/share/${token}`);
+      return;
+    }
+
     const fetchShare = async () => {
       try {
         const { data } = await api.get<ShareFileResponse>(`/share/${token}`);
@@ -24,7 +31,7 @@ export default function SharePage() {
     };
 
     if (token) fetchShare();
-  }, [token]);
+  }, [token, router]);
 
   return (
     <div className="flex min-h-[80vh] flex-col items-center justify-center animate-fade-in">
