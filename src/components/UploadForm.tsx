@@ -55,8 +55,8 @@ export default function UploadForm() {
     }
   };
 
-  const shareUrl = result
-    ? `${API_URL}/share/${result.shareToken}`
+  const shareUrl = result && typeof window !== "undefined"
+    ? `${window.location.origin}/share/${result.shareToken}`
     : null;
 
   return (

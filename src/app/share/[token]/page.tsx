@@ -76,12 +76,12 @@ export default function SharePage() {
           </div>
 
           {/* Image */}
-          <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-brand-900/60">
+          <div className="flex justify-center mt-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={fileUrl}
               alt="Shared image"
-              className="w-full object-contain"
+              className="max-w-2xl rounded-lg shadow-lg"
             />
           </div>
 
